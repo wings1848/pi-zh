@@ -1,0 +1,44 @@
+{
+  "name": "@wings1848/pi-zh",
+  "version": "0.3.0",
+  "description": "Pi 汉化插件：slash 命令补全、TUI 文案、pi-telegram 界面统一汉化",
+  "type": "module",
+  "license": "MIT",
+  "keywords": [
+    "pi-package",
+    "pi",
+    "i18n",
+    "chinese",
+    "localization",
+    "汉化"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wings1848/pi-zh.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wings1848/pi-zh/issues"
+  },
+  "homepage": "https://github.com/wings1848/pi-zh#readme",
+  "files": [
+    "extensions",
+    "lib",
+    "scripts"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "pi": {
+    "extensions": [
+      "./extensions"
+    ]
+  },
+  "devDependencies": {
+    "@earendil-works/pi-coding-agent": "^0.84.4",
+    "@types/node": "^26.4.0",
+    "typescript": "^7.0.2"
+  }
+}
