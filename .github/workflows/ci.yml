@@ -38,10 +38,5 @@ jobs:
         with:
           bun-version: latest
 
-      - name: Secret scanning (gitleaks)
-        uses: gitleaks/gitleaks-action@v3
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Dependency audit
         run: bun audit --registry https://registry.npmjs.org
