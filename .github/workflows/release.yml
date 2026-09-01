@@ -26,6 +26,9 @@ jobs:
           registry-url: "https://registry.npmjs.org"
           package-manager-cache: false # 发布构建禁用缓存
 
+      - name: Upgrade npm (OIDC requires >= 11.5.1)
+        run: npm install -g npm@latest
+
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
