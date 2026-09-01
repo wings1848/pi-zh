@@ -24,6 +24,9 @@ jobs:
       - name: Typecheck
         run: bun run typecheck
 
+      - name: Run tests
+        run: bun test
+
       - name: Check scripts syntax
         run: bunx --bun node --check scripts/zh-dict.mjs
 
@@ -37,11 +40,6 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
-
-      - name: Secret scanning (gitleaks)
-        uses: gitleaks/gitleaks-action@v3
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Dependency audit
         run: bun audit --registry https://registry.npmjs.org

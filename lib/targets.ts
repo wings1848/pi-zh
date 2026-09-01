@@ -62,12 +62,20 @@ export const TARGETS: TargetDefinition[] = [
   },
 ];
 
-/** 解析 target 的安装根目录；未安装返回 null */
-export function resolveTargetRoot(target: TargetDefinition): string | null {
-  for (const root of target.packageRoots) {
-    if (existsSync(join(root, target.marker))) return root;
+/** 从候选根列表中取第一个含 marker 的目录（纯函数，可测） */
+export function resolveFirstRoot(
+  candidates: string[],
+  marker: string,
+): string | null {
+  for (const dir of candidates) {
+    if (existsSync(join(dir, marker))) return dir;
   }
   return null;
+}
+
+/** 解析 target 的安装根目录；未安装返回 null */
+export function resolveTargetRoot(target: TargetDefinition): string | null {
+  return resolveFirstRoot(target.packageRoots, target.marker);
 }
 
 /** target 是否已安装（探测文件存在） */

@@ -1,7 +1,7 @@
 # pi-zh — Pi 汉化插件
 
-[![npm version](https://img.shields.io/npm/v/@wings1848/pi-zh)](https://www.npmjs.com/package/@wings1848/pi-zh)
-[![license](https://img.shields.io/npm/l/@wings1848/pi-zh)](LICENSE)
+[![npm version](https://img.shields.io/npm/v/@wingsbutterfly/pi-zh)](https://www.npmjs.com/package/@wingsbutterfly/pi-zh)
+[![license](https://img.shields.io/npm/l/@wingsbutterfly/pi-zh)](LICENSE)
 [![CI](https://github.com/wings1848/pi-zh/actions/workflows/ci.yml/badge.svg)](https://github.com/wings1848/pi-zh/actions/workflows/ci.yml)
 
 统一汉化 Pi 及其生态插件的界面文案。**默认不启用**，通过 `/pi-zh on` 优雅开启，`/pi-zh off` 一键还原。零侵入：不改动任何上游 API 行为，仅做**可逆幂等补丁**与 Telegram API 同步。
@@ -10,7 +10,7 @@
 
 ```bash
 # 方式一：npm 包（推荐）
-pi install npm:@wings1848/pi-zh
+pi install npm:@wingsbutterfly/pi-zh
 
 # 方式二：GitHub 仓库
 pi install git:github.com/wings1848/pi-zh@v0.3.0
@@ -97,6 +97,7 @@ pi install git:github.com/wings1848/pi-zh@v0.3.0
 ```bash
 bun install          # 安装依赖
 bun run typecheck    # 类型检查
+bun test             # 单元测试（bun:test）
 ```
 
 新增汉化/新 target 指南见 [CONTRIBUTING.md](CONTRIBUTING.md)，版本历史见 [CHANGELOG.md](CHANGELOG.md)。

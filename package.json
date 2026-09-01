@@ -1,5 +1,5 @@
 {
-  "name": "@wings1848/pi-zh",
+  "name": "@wingsbutterfly/pi-zh",
   "version": "0.3.0",
   "description": "Pi 汉化插件：slash 命令补全、TUI 文案、pi-telegram 界面统一汉化",
   "type": "module",
@@ -29,6 +29,7 @@
     "node": ">=18"
   },
   "scripts": {
+    "test": "bun test",
     "typecheck": "tsc --noEmit"
   },
   "pi": {

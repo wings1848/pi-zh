@@ -34,6 +34,17 @@ bun run typecheck    # 类型检查
 
 ## 提 PR 前
 
+main 分支已开启保护：**不能直接推送，必须走 PR**（force push 已被禁止）。
+
+```bash
+# 标准提交流程
+git switch -c feat/xxx          # 1. 新建分支
+# ... 提交改动 ...
+git push -u origin feat/xxx    # 2. 推送分支
+gh pr create --fill            # 3. 开 PR（等 CI 全绿）
+gh pr merge --squash           # 4. 合并（squash 保持线性历史）
+```
+
 - [ ] `bun run typecheck` 通过
 - [ ] 新增汉化条目不与其他条目重叠
 - [ ] patch/restore 幂等语义正确（重复执行无副作用）

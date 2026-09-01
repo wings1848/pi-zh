@@ -32,6 +32,9 @@ jobs:
       - name: Typecheck
         run: bun run typecheck
 
+      - name: Run tests
+        run: bun test
+
       - name: Publish to npm (Trusted Publishing / OIDC)
         run: npm publish --access public --provenance
 

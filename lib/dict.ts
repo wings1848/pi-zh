@@ -138,7 +138,6 @@ const PI_SESSION_PANEL: DictEntry[] = [
   { en: 'theme.fg("dim","Cache Re-billed:")', zh: 'theme.fg("dim","缓存重新计费:")', note: "字段" },
   { en: '"1 miss"', zh: '"1 次未命中"', note: "缓存未命中" },
   { en: '`${cacheWaste.missCount} misses`', zh: '`${cacheWaste.missCount} 次未命中`', note: "缓存未命中" },
-  { en: '"Show session info and stats"', zh: '"显示会话信息与统计"', note: "命令描述（已有）—— 保留" },
 ];
 
 // ---------------------------------------------------------------------------
