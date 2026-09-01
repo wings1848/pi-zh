@@ -2,6 +2,11 @@
 
 本文件记录 pi-zh 的重要变更。版本遵循 [Semantic Versioning](https://semver.org/lang/zh-CN/)。
 
+## [0.3.1] - 2026-09-02
+
+- 发布至 npm：Trusted Publishing (OIDC) 全自动发布验证
+- CI 发布流程升级 npm CLI（OIDC 要求 >= 11.5.1）
+
 ## [0.3.0] - 2026-09-02
 
 - 正式作为开源项目发布（MIT License）
