@@ -51,7 +51,7 @@ function readPiDi18nLocale(): string | undefined {
 }
 
 /** pi-di18n 运行时 locale（模拟它的 detectLocaleFromEnv） */
-function readPiDi18nEnvLocale(): string | undefined {
+export function readPiDi18nEnvLocale(): string | undefined {
   const candidates = [
     process.env.PI_LOCALE,
     process.env.LC_ALL,
@@ -66,19 +66,18 @@ function readPiDi18nEnvLocale(): string | undefined {
   return undefined;
 }
 
+/** locale 是否为英文/中性环境（en、en-US、C、POSIX 等 → 未激活） */
+export function isEnglishLocale(locale: string | undefined): boolean {
+  if (!locale || locale.trim() === "") return true;
+  const lang = locale.toLowerCase().split("-")[0]!;
+  return lang === "en" || lang === "c" || lang === "posix";
+}
+
 /** pi-di18n 是否激活（已安装 + locale 非 en + coreHacks 未禁用） */
 export function isPiDi18nActive(): boolean {
   if (!isPiDi18nInstalled()) return false;
   const locale = readPiDi18nLocale() ?? readPiDi18nEnvLocale();
-  if (!locale) return false;
-  const lang = String(locale).toLowerCase().split("-")[0]!;
-  // en、en-US、en-GB、C、POSIX 等英文/中性环境 → 未激活
-  return !(
-    lang === "" ||
-    lang === "en" ||
-    lang === "c" ||
-    lang === "posix"
-  );
+  return !isEnglishLocale(locale);
 }
 
 /** 协调结果：当前 pi target 由谁负责 */

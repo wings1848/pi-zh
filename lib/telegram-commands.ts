@@ -34,7 +34,7 @@ const EXTENSION_ZH: Record<string, string> = {
   review: "🧩 审查排队任务",
 };
 
-interface TelegramCommand {
+export interface TelegramCommand {
   command: string;
   description: string;
 }
@@ -127,11 +127,11 @@ async function callTelegramApi<T>(
   return payload.result as T;
 }
 
-function translateDescription(cmd: TelegramCommand): string {
+export function translateDescription(cmd: TelegramCommand): string {
   return BUILTIN_ZH[cmd.command] ?? EXTENSION_ZH[cmd.command] ?? cmd.description;
 }
 
-function isEnglishDescription(description: string): boolean {
+export function isEnglishDescription(description: string): boolean {
   return /Open menu \/ Pair bridge|Compact current session|Force next turn/.test(
     description,
   );

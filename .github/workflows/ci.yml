@@ -24,6 +24,9 @@ jobs:
       - name: Typecheck
         run: bun run typecheck
 
+      - name: Run tests
+        run: bun test
+
       - name: Check scripts syntax
         run: bunx --bun node --check scripts/zh-dict.mjs
 

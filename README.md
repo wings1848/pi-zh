@@ -97,6 +97,7 @@ pi install git:github.com/wings1848/pi-zh@v0.3.0
 ```bash
 bun install          # 安装依赖
 bun run typecheck    # 类型检查
+bun test             # 单元测试（bun:test）
 ```
 
 新增汉化/新 target 指南见 [CONTRIBUTING.md](CONTRIBUTING.md)，版本历史见 [CHANGELOG.md](CHANGELOG.md)。

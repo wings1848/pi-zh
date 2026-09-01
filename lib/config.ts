@@ -16,7 +16,7 @@
 
 import { existsSync, readFileSync, renameSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
 
 export interface PiZhConfig {
   /** 是否启用汉化（默认 false） */
@@ -28,10 +28,10 @@ export interface PiZhConfig {
 const CONFIG_PATH = join(homedir(), ".pi/agent/pi-zh.json");
 
 /** 读取配置；文件不存在或无效返回默认关闭配置 */
-export function readConfig(): PiZhConfig {
+export function readConfig(path: string = CONFIG_PATH): PiZhConfig {
   try {
-    if (!existsSync(CONFIG_PATH)) return { enabled: false };
-    const raw = JSON.parse(readFileSync(CONFIG_PATH, "utf8")) as Partial<PiZhConfig>;
+    if (!existsSync(path)) return { enabled: false };
+    const raw = JSON.parse(readFileSync(path, "utf8")) as Partial<PiZhConfig>;
     return {
       enabled: raw.enabled === true,
       ...(Array.isArray(raw.targets) ? { targets: raw.targets } : {}),
@@ -42,26 +42,26 @@ export function readConfig(): PiZhConfig {
 }
 
 /** 写入配置（原子写：先写临时文件再 rename） */
-export function writeConfig(config: PiZhConfig): void {
-  const dir = join(homedir(), ".pi/agent");
-  if (!existsSync(dir)) return;
-  const tmp = `${CONFIG_PATH}.tmp`;
+export function writeConfig(config: PiZhConfig, path: string = CONFIG_PATH): void {
+  const parent = dirname(path);
+  if (!existsSync(parent)) return;
+  const tmp = `${path}.tmp`;
   writeFileSync(tmp, JSON.stringify(config, null, 2) + "\n", "utf8");
   // 同步替换避免读到半截文件
-  renameSync(tmp, CONFIG_PATH);
+  renameSync(tmp, path);
 }
 
 /** 简易启用：写入 enabled 配置 */
-export function enableConfig(targets?: string[]): PiZhConfig {
+export function enableConfig(targets?: string[], path: string = CONFIG_PATH): PiZhConfig {
   const config: PiZhConfig = { enabled: true, ...(targets ? { targets } : {}) };
-  writeConfig(config);
+  writeConfig(config, path);
   return config;
 }
 
 /** 简易关闭：写入 enabled:false（并清空 targets 以便下次重新探测） */
-export function disableConfig(): PiZhConfig {
+export function disableConfig(path: string = CONFIG_PATH): PiZhConfig {
   const config: PiZhConfig = { enabled: false };
-  writeConfig(config);
+  writeConfig(config, path);
   return config;
 }
 

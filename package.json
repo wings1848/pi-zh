@@ -29,6 +29,7 @@
     "node": ">=18"
   },
   "scripts": {
+    "test": "bun test",
     "typecheck": "tsc --noEmit"
   },
   "pi": {
