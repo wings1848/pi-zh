@@ -101,9 +101,15 @@ function applyAll(mode: "patch" | "restore"): Array<{ target: string; applied: n
 async function turnOn(targetList?: string[]): Promise<string> {
   enableConfig(targetList);
   const results = applyAll("patch");
-  const sdkOk = ensureI18nSdk();
+  const sdkState = ensureI18nSdk();
+  const sdkNote =
+    sdkState === "installed"
+      ? "，i18n SDK 就绪"
+      : sdkState === "installing"
+        ? "，i18n SDK 后台安装中（重启后生效）"
+        : "，i18n SDK 缺失（语言切换回退英文）";
   const counts = results.map((r) => `${r.target}:${r.applied}`).join(" ");
-  return `✅ pi-zh 已启用${targetList ? `（${targetList.join(", ")}）` : ""}（${counts}）${sdkOk ? "，i18n SDK 就绪" : "，i18n SDK 安装失败"}`;
+  return `✅ pi-zh 已启用${targetList ? `（${targetList.join(", ")}）` : ""}（${counts}）${sdkNote}`;
 }
 
 /** 关闭：还原所有已汉化文件 + 写配置 */
@@ -144,7 +150,8 @@ export default async function (pi: ExtensionAPI) {
   if (config.enabled) {
     applyAll("patch");
     if (["pi", "telegram", "cache-optimizer"].every((t) => config.targets?.includes(t) || !config.targets)) {
-      ensureI18nSdk();
+      // 非阻塞：SDK 缺失时后台安装，不拖慢启动
+      void ensureI18nSdk();
     }
     if (TG_TOKENS.length > 0) {
       const ok = await syncAllTokens();

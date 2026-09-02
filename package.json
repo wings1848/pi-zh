@@ -1,6 +1,6 @@
 {
   "name": "@wingsbutterfly/pi-zh",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "Pi 汉化插件：slash 命令补全、TUI 文案、pi-telegram 界面统一汉化",
   "type": "module",
   "license": "MIT",
