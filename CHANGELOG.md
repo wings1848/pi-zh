@@ -2,6 +2,14 @@
 
 本文件记录 pi-zh 的重要变更。版本遵循 [Semantic Versioning](https://semver.org/lang/zh-CN/)。
 
+## [0.4.0] - 2026-09-02
+
+- **性能修复**：i18n SDK 安装改为异步非阻塞（`execFile` 取代 `execFileSync`），pi 启动不再被包安装卡死（旧版曾在 npm 与 pnpm 目录不兼容时阻塞 30~80s）
+- 自动探测包管理器（pnpm / npm / bun）：优先匹配目录特征（.pnpm / lockfile），其次 pi settings `npmCommand`，最后 PATH 回退
+- 后台安装并发去重，失败静默下次再试；`ensureI18nSdk` 同步毫秒级返回 `installed | installing | missing`
+- `/pi-zh on` 提示语区分 SDK 就绪 / 后台安装中 / 缺失回退英文
+- 新增 sdk.test.ts（8 用例），全量 59 用例通过
+
 ## [0.3.1] - 2026-09-02
 
 - 发布至 npm：Trusted Publishing (OIDC) 全自动发布验证
