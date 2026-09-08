@@ -13,7 +13,7 @@
 pi install npm:@wingsbutterfly/pi-zh
 
 # 方式二：GitHub 仓库
-pi install git:github.com/wings1848/pi-zh@v0.3.0
+pi install git:github.com/wings1848/pi-zh@v0.4.1
 ```
 
 安装后重启 pi，执行 `/pi-zh on` 启用汉化。
@@ -60,7 +60,7 @@ pi install git:github.com/wings1848/pi-zh@v0.3.0
 - **默认不启用**：无配置文件或 `enabled !== true` 一律关闭，启动零开销
 - **可逆还原**：restore 按词典反向替换（zh→en），与 patch 共用同一数据源，无备份文件依赖
 - **安全降级**：任一 target 探测/补丁失败不影响其他 target 与 pi 本身；匹配不到原文时静默跳过
-- **更新安全**：pi/插件更新覆盖补丁后，下次启动或 `/pi-zh on` 自动重打；SDK 缺失时插件回退英文，**不产生异常**
+- **更新安全**：pi/插件更新覆盖补丁后，下次启动或 `/pi-zh on` 自动重打；pi bundle chunk 文件名随版本变化时自动重新枚举（升级免疫）；SDK 缺失时插件回退英文，**不产生异常**
 - **新增汉化**：编辑 `lib/dict.ts` 加一行 `{ en, zh, targetFiles?, note? }`；新增插件则加一个 target 定义（`targets.ts`）并挂上词典
 
 ## 与 pi-di18n 共存（自动分工，无冲突）
