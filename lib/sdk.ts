@@ -136,15 +136,21 @@ export function installI18nSdk(
   const { cmd, args } = buildInstallArgs(detectPackageManager(npmDir));
 
   installInFlight = new Promise<boolean>((resolve) => {
-    execFile(
-      cmd,
-      args,
-      { cwd: npmDir, timeout: 120_000, maxBuffer: 4 * 1024 * 1024 },
-      (_error, _stdout, _stderr) => {
-        const ok = isI18nSdkInstalled(npmDir);
-        resolve(ok);
-      },
-    );
+    try {
+      execFile(
+        cmd,
+        args,
+        { cwd: npmDir, timeout: 120_000, maxBuffer: 4 * 1024 * 1024 },
+        (_error, _stdout, _stderr) => {
+          const ok = isI18nSdkInstalled(npmDir);
+          resolve(ok);
+        },
+      );
+    } catch {
+      // posix_spawn 同步失败（如包管理器脚本无 exec 权限）也按静默失败处理，
+      // 不能违反「绝不影响使用方」契约向外抛异常
+      resolve(false);
+    }
   }).finally(() => {
     installInFlight = null;
   });

@@ -44,7 +44,7 @@ export const TARGETS: TargetDefinition[] = [
     label: "Pi 本体（命令补全 / TUI 文案）",
     packageRoots: PI_ROOTS,
     marker: "package.json",
-    probeFiles: ["dist/core/slash-commands.js"],
+    probeFiles: ["dist/core/slash-commands.js", "dist/bundle/index.js"],
   },
   {
     name: "telegram",

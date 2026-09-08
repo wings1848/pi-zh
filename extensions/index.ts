@@ -20,6 +20,7 @@
  */
 
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
+import { existsSync, readdirSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
 import { getPiTargetOwner, isPiDi18nActive } from "../lib/coexist.ts";
@@ -45,12 +46,17 @@ function buildTargetFiles(target: TargetDefinition): PatchTarget[] {
       files.add(file);
     }
   }
-  // 无 targetFiles 限定的条目（如 pi 的 slash-commands 需特殊处理）在 files 为空时补默认文件
+  // 无 targetFiles 限定的条目（如 pi 的 slash-commands 需特殊处理）在 files 为空时补默认文件。
+  // pi 的 chunk 文件名随版本变化（如 0.84 的 chunk-OMWWHBTG → 0.85 的 chunk-JVUZSMYM），
+  // 因此动态枚举 dist/bundle/chunks 下全部 .js，对不含目标文本的文件 0 命中自动跳过（升级免疫）。
+  const piChunksDir = join(root, "dist/bundle/chunks");
+  const piChunkFiles = existsSync(piChunksDir)
+    ? readdirSync(piChunksDir)
+      .filter((f) => f.endsWith(".js"))
+      .map((f) => `dist/bundle/chunks/${f}`)
+    : [];
   const defaults: Record<string, string[]> = {
-    pi: [
-      "dist/core/slash-commands.js",
-      "dist/bundle/chunks/chunk-OMWWHBTG.js",
-    ],
+    pi: ["dist/core/slash-commands.js", ...piChunkFiles],
     telegram: ["lib/commands.ts", "lib/status.ts", "lib/menu-status.ts", "lib/menu-model.ts", "lib/menu-thinking.ts", "lib/menu-queue.ts", "lib/menu-settings.ts"],
     "cache-optimizer": ["index.ts"],
   };

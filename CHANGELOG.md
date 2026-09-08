@@ -2,6 +2,12 @@
 
 本文件记录 pi-zh 的重要变更。版本遵循 [Semantic Versioning](https://semver.org/lang/zh-CN/)。
 
+## [0.4.1] - 2026-09-02
+
+- **修复 pi 0.85.x 升级后 TUI 文案汉化失效**：pi 本体 0.84.4 → 0.85.1 后 bundle chunk 文件名变更（chunk-OMWWHBTG → chunk-JVUZSMYM），旧版硬编码目标失配。现改为动态枚举 `dist/bundle/chunks/*.js`（147 条词典已验证全部命中），后续 pi 升级不再需要发版适配（升级免疫）
+- pi 探测增加第二探针 `dist/bundle/index.js`，增强抗变更性
+- 修复：SDK 后台安装时包管理器 spawn 同步失败（如 posix_spawn ENOEXEC）不再向外抛异常，按契约静默回退
+
 ## [0.4.0] - 2026-09-02
 
 - **性能修复**：i18n SDK 安装改为异步非阻塞（`execFile` 取代 `execFileSync`），pi 启动不再被包安装卡死（旧版曾在 npm 与 pnpm 目录不兼容时阻塞 30~80s）
